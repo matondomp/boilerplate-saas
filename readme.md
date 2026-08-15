@@ -2,6 +2,11 @@
 
 Este é um boilerplate que utiliza a abordagem de Design Orientado a Domínio (DDD) e Arquitetura Limpa (Clean Architecture). Ele foi desenvolvido com o framework Adonis v6 e Vue.js, e requer um ambiente mínimo com Node.js 20.9.0 e NPM 10.2.4, MongoDB e MySQL.
 
+
+> 📖 **DOCUMENTAÇÃO CENTRAL & BASE DE CONHECIMENTO:**  
+> A documentação completa de arquitetura, inventário vivo de módulos, padrões e o **[Guia Mandatório de Desenvolvimento com IA](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/ai/ai-development-guide.md)** estão disponíveis na pasta [`docs/`](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/README.md).  
+> **Qualquer desenvolvimento ou interação com IA DEVE seguir estritamente o protocolo em [`docs/ai/ai-development-guide.md`](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/ai/ai-development-guide.md).**
+
 ## Tecnologias
 
 - Adonis v6
