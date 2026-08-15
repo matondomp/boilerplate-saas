@@ -1,0 +1,28 @@
+paths:
+  /api/security/auth/logout:
+    post:
+      tags:
+        - AUTH
+      summary: Log Out
+      description: Endpoint for user logout
+      responses:
+        200:
+          description: Sucess
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Logout successful
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Unauthorized'

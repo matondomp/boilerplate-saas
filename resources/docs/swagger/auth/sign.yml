@@ -1,0 +1,50 @@
+paths:
+  /api/security/auth/login:
+    post:
+      tags:
+        - AUTH
+      summary: Login
+      description: Endpoint for user login
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: root@mp.co.ao
+                  description: Username
+                password:
+                  type: string
+                  example: 12345678
+                  description: password
+              required:
+                - username
+                - password
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Successful login
+                  token:
+                    type: string
+                    description: JWT token for authentication
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Please fill in the 'username' and 'password' field before trying again."
+        401:
+          description: Unauthorized - Incorrect username or password

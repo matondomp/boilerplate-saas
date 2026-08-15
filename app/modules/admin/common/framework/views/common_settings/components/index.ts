@@ -1,0 +1,5 @@
+export { default as CommonUpdateCustomNotifications } from './common_update_custom_notifications.vue'
+export { default as CommonUpdateGeneralInfo } from './common_update_general_info.vue'
+export { default as CommonUpdateLanguageAndTimezone } from './common_update_language_timezone.vue'
+export { default as CommonUpdatePassword } from './common_update_password.vue'
+export { default as CommonUploadAvatar } from './common_upload_avatar.vue'

@@ -1,0 +1,25 @@
+{
+  "extends": "@adonisjs/tsconfig/tsconfig.app.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./build",
+    "paths": {
+      "#app/*": ["./app/framework/*.js"],
+      "#core/*": ["./@core/*.js"],
+      "#shared/*": ["./app/modules/shared/*.js"],
+      "#modules/*": ["./app/modules/*.js"],
+      "#addons/*": ["./app/modules/addons/*.js"],
+      "#providers/*": ["./providers/*.js"],
+      "#database/*": ["./database/*.js"],
+      "#tests/*": ["./tests/*.js"],
+      "#start/*": ["./start/*.js"],
+      "#config/*": ["./config/*.js"]
+    }
+  },
+  "exclude": ["./app/**/framework/views/**/*", "./inertia/**/*", "node_modules", "build"],
+  "references": [
+    {
+      "path": "./tsconfig.client.json"
+    }
+  ]
+}

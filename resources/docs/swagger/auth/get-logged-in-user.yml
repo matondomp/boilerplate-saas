@@ -1,0 +1,91 @@
+paths:
+  /api/auth/me:
+    get:
+      summary: Get Logged-in User Data
+      description: Retrieves the data of the currently logged-in user.
+      operationId: getLoggedInUser
+      tags:
+        - AUTH
+      responses:
+        '200':
+          description: Successfully retrieved the user data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: 'fc17229a-2758-4477-8257-25845d10965b'
+                      firstName:
+                        type: string
+                        example: 'Root'
+                      lastName:
+                        type: string
+                        example: 'User'
+                      slug:
+                        type: string
+                        example: 'root-user'
+                      email:
+                        type: string
+                        example: 'root@mp.co.ao'
+                      avatar:
+                        type: string
+                        nullable: true
+                        example: null
+                      defaultLang:
+                        type: string
+                        example: 'pt'
+                      timezone:
+                        type: string
+                        example: 'Africa/Luanda'
+                      forceChangePassword:
+                        type: integer
+                        example: 1
+                      statusId:
+                        type: string
+                        example: 'ACTIVE'
+                      lastLoginAt:
+                        type: string
+                        format: date-time
+                        example: '2024-08-15T15:33:13.000+00:00'
+                      deletedAt:
+                        type: string
+                        nullable: true
+                        example: null
+                      createdAt:
+                        type: string
+                        format: date-time
+                        example: '2024-08-12T12:33:02.000+00:00'
+                      updatedAt:
+                        type: string
+                        format: date-time
+                        example: '2024-08-15T15:33:13.000+00:00'
+                      roleId:
+                        type: string
+                        example: '4afe3254-6021-46d3-a9b6-598db4c806af'
+                      fullName:
+                        type: string
+                        example: 'Root User'
+        '401':
+          description: Unauthorized access. User is not authenticated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: 'User is not authenticated.'
+                  error:
+                    type: string
+                    example: 'E_NOT_AUTHENTICATED'

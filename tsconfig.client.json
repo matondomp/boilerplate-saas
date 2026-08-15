@@ -1,0 +1,27 @@
+{
+  "extends": "@adonisjs/tsconfig/tsconfig.client.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "./",
+    "plugins": [
+      {
+        "name": "@vue/typescript-plugin"
+      }
+    ],
+    "jsx": "preserve",
+    "module": "ESNext",
+    "jsxImportSource": "vue",
+    "paths": {
+      "~/*": ["./inertia/*"],
+      "@core/*": ["./inertia/core/*"],
+      "@app/*": ["./app/modules/*"]
+    }
+  },
+  "exclude": ["node_modules", "build"],
+  "include": [
+    "./app/**/framework/views/**/*.ts",
+    "./app/**/framework/views/**/*.vue",
+    "./inertia/**/*.ts",
+    "./inertia/**/*.vue"
+  ]
+}

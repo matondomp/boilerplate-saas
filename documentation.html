@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <title>Manual de Integração & Plano de Implementação</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            background-color: #ffffff;
+        }
+
+        h1, h2, h3, h4 {
+            color: #0f172a;
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 12px;
+            margin-top: 40px;
+            color: #5468FF;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-top: 30px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #334155;
+        }
+
+        p, li {
+            font-size: 1rem;
+            color: #334155;
+        }
+
+        code {
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+
+        pre code {
+            background-color: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            font-weight: 600;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .cover-page {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            padding: 40px;
+        }
+
+        .cover-title {
+            font-size: 3rem;
+            color: #5468FF;
+            margin-bottom: 10px;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            background-color: #e0e7ff;
+            color: #5468FF;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Capa -->
+    <div class="cover-page">
+        <span class="badge">ONBOARDING & PLANO DE INTEGRAÇÃO</span>
+        <h1 class="cover-title" style="border:none; margin:0;">Manual de Integração & Plano de Implementação</h1>
+        <p class="cover-subtitle">Desenho Arquitetural & Desenvolvimento do Módulo Pedagogy (MED Angola)</p>
+        <p style="margin-top: 100px; font-weight: 500;">Tecnologia: AdonisJS v6, Clean Architecture, DDD, Inertia & Vue 3</p>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Gerado em 2026</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Documento 1: Manual de Integração -->
+    <h1>Parte 1: Manual de Integração e Onboarding Técnico</h1>
+    
+    <h2>1. Visão Geral da Arquitetura e Decisões de Design</h2>
+    <h3>Padrão Monólito Modular</h3>
+    <p>A aplicação isola os domínios em módulos contidos em <code>app/modules/</code>. A pasta de extensões (<code>app/modules/addons/</code>) abriga domínios como <code>accounting</code> e <code>crm</code>. A regra de dependência exige que a comunicação entre diferentes módulos ocorra preferencialmente via eventos ou contratos abstratos expostos em <code>shared</code>, mantendo baixo acoplamento.</p>
+    
+    <h3>Camadas de Clean Architecture</h3>
+    <p>Cada módulo é estruturado internamente em:</p>
+    <ul>
+        <li><code>domain/</code>: Entidades puras, regras de negócio, erros e eventos. Sem dependências externas.</li>
+        <li><code>usecases/</code>: Casos de uso de aplicação (orquestradores). Conhece apenas o domínio e as portas (interfaces).</li>
+        <li><code>framework/</code>: Controladores HTTP, Rotas, Persistência (Models Lucid, Repositórios e Mappers) e Listeners de eventos.</li>
+    </ul>
+
+    <h3>Tratamento de Erros com Either/Result</h3>
+    <p>O tratamento usa o padrão funcional <code>Either&lt;L, R&gt;</code> para retornar falhas estruturadas (Left) ou sucessos (Right), evitando o uso excessivo de <code>try/catch</code>.</p>
+    <pre><code>// Exemplo de erro estruturado
+export class AccountingOfficeNameRequiredError extends Result&lt;DomainError&gt; {
+  constructor() {
+    super(false, {
+      message: 'accounting.office.name.required',
+      error: AccountingOfficeNameRequiredError.name,
+    })
+  }
+}</code></pre>
+
+    <h2>2. Ciclo de Vida do Registro de Módulos (Bootstrapping)</h2>
+    <p>O AdonisJS detecta e registra dinamicamente rotas, inicializações, eventos e traduções.</p>
+    <pre><code>// start/main.ts - Bootstrapping dinâmico de arquivos
+const loadFiles = async (path: string, pattern: any) => {
+  const req = loadContext(path, true, pattern)
+  for (const filename of req.keys()) {
+    await import(filename)
+  }
+}
+
+const paths = ['app/modules']
+for (const path of paths) {
+  await loadFiles(resolve(app.appRoot.pathname, path), /main\/events\.(ts|js)$/)
+  await loadFiles(resolve(app.appRoot.pathname, path), /main\/startup\.(ts|js)$/)
+  await loadFiles(resolve(app.appRoot.pathname, path), /main\/routes\.(ts|js)$/)
+}</code></pre>
+
+    <div class="page-break"></div>
+
+    <!-- Documento 2: Plano de Implementação -->
+    <h1>Parte 2: Plano de Implementação - Novo Módulo (Pedagogy)</h1>
+    
+    <h2>1. Objetivo</h2>
+    <p>Implementar a gestão de Pautas, Alunos, Chamadas e Planos de Aula sob as diretrizes do Ministério da Educação (MED) em Angola.</p>
+
+    <h2>2. Regras de Negócio do Módulo</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Regra</th>
+                <th>Descrição / Fórmula</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Componentes de Notas</td>
+                <td>MAC (Avaliação Contínua), NPP (Prova do Professor), NPT (Prova Trimestral)</td>
+            </tr>
+            <tr>
+                <td>Média Trimestral (MT)</td>
+                <td><code>MT = (MAC + NPP + NPT) / 3</code></td>
+            </tr>
+            <tr>
+                <td>Média Final (MF)</td>
+                <td><code>MF = (MT1 + MT2 + MT3) / 3</code></td>
+            </tr>
+            <tr>
+                <td>Critérios de Aprovação</td>
+                <td>
+                    <code>MF >= 10</code>: Aprovado<br>
+                    <code>7 <= MF <= 9</code>: Recurso<br>
+                    <code>MF < 7</code>: Reprovado
+                </td>
+            </tr>
+            <tr>
+                <td>Chamadas e Faltas</td>
+                <td>Presença, Falta, Falta Justificada. Alerta visual quando faltas superarem 20% das aulas.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. Detalhes das Entidades de Domínio</h2>
+    <h3>StudentEntity</h3>
+    <p>Representa o aluno no sistema com validação obrigatória de Nome e Matrícula.</p>
+
+    <h3>GradeEntity</h3>
+    <p>Garante que notas estejam entre 0 e 20 (através do Value Object <code>AcademicGrade</code>) e realiza os cálculos automáticos de médias.</p>
+    
+    <h3>LessonPlanEntity</h3>
+    <p>Define a estrutura pedagógica do plano de aula (Unidade Temática, Tema, Objetivos Operacionais, Métodos, Tarefas e Fases da Aula).</p>
+
+    <h2>4. Estrutura de Diretórios Proposta</h2>
+    <pre><code>app/modules/addons/pedagogy/
+├── domain/
+│   ├── entities/
+│   │   ├── student_entity.ts
+│   │   ├── grade_entity.ts
+│   │   └── lesson_plan_entity.ts
+│   ├── errors/
+│   │   └── pedagogy_errors.ts
+│   ├── value_objects/
+│   │   └── academic_grade.ts
+│   └── ports/
+│       ├── student_repository.ts
+│       └── grade_repository.ts
+├── usecases/
+│   ├── calculate_trimestral_grade/
+│   └── create_lesson_plan/
+└── framework/
+    ├── infra/
+    │   └── db/
+    │       ├── models/
+    │       └── mappers/
+    └── main/
+        ├── controllers/
+        ├── factories/
+        └── routes.ts</code></pre>
+
+</body>
+</html>

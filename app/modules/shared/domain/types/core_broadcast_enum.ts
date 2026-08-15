@@ -1,0 +1,7 @@
+export enum CoreBroadcastEnum {
+  SEND_EMAIL = 'SEND_EMAIL',
+  NOTIFY = 'NOTIFY',
+  NOTIFY_ALL = 'NOTIFY_ALL',
+  TRACK_ACTIVITY = 'TRACK_ACTIVITY',
+  REGISTER_LOG = 'REGISTER_LOG',
+}

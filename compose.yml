@@ -1,0 +1,57 @@
+services:
+  # webapp:
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile.dev
+  #  ports:
+  #    - '5555:5555'
+  #    - '9999:9999'
+  #    - '8080:8080'
+  #  env_file:
+  #    - .env
+  #  environment:
+  #    - REDIS_HOST=redis
+  #    - MONGODB_URL=mongodb://mongodb:27017
+  #  networks:
+  #    - app
+  #  depends_on:
+  #    - redis
+  #    - mysql
+  #  volumes:
+  #    - ./:/app
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - app
+  mysql:
+    image: mysql/mysql-server:latest
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - '3306:3306'
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app
+
+volumes:
+  mysql_data:
+  mongodb_data:
+
+networks:
+  app:
+    driver: bridge
