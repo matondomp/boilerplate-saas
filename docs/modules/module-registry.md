@@ -19,6 +19,7 @@
 | **Admin::ApplicationManagement** | `IMPLEMENTED` | `app/modules/admin/settings/application_management` | Configurações do sistema (nome, cores, logotipos) | `@core`, `shared` | UI Shell | [admin-application-management.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/admin-application-management.md) | 2026-08-15 |
 | **Admin::DashboardManagement** | `IMPLEMENTED` | `app/modules/admin/settings/dashboard_management` | Construtor de dashboards e widgets customizados | `@core`, `shared` | Admin Dashboard | [admin-dashboard-management.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/admin-dashboard-management.md) | 2026-08-15 |
 | **Addons::CRM** | `IN_PROGRESS` | `app/modules/addons/crm` | Gestão de Clientes, Entidades Cativantes e Bancos | `@core`, `shared` | UI de Vendas | [addons-crm.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-crm.md) | 2026-08-15 |
+| **Addons::Academic** | `INTEGRATED` | `app/modules/addons/academic` | Estrutura Académica, Exames, Questões, Moderação IA e Metas de Estudo | `@core`, `shared`, MySQL, MongoDB | Estudante, Admin, IA | [addons-academic.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-academic.md) | 2026-08-28 |
 | **Addons::Accounting** | `PLANNED` | `app/modules/addons/accounting` | Módulo de contabilidade (referenciado em adonisrc.ts) | `@core`, `shared` | Financeiro | *Pendente* | 2026-08-15 |
 | **Addons::Pedagogy** | `PLANNED` | `app/modules/addons/pedagogy` | Gestão de Pautas, Alunos e Notas (MED Angola) | `@core`, `shared` | Gestão Escolar | [documentation.html](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/documentation.html) | 2026-08-15 |
 
@@ -121,3 +122,25 @@
 ### 2.10. Módulos Planejados (`PLANNED`)
 - **`Addons::Accounting`:** Módulo financeiro e contábil referenciado em suites de testes de `adonisrc.ts` (`accounting-unit`, `accounting-functional`).
 - **`Addons::Pedagogy`:** Módulo para o setor educacional de Angola (MED), detalhado no arquivo `documentation.html` com regras de notas (MAC, NPP, NPT, MT, MF), pautas e planos de aula.
+
+---
+
+### 2.11. Módulo `Addons::Academic`
+- **Status:** `INTEGRATED`
+- **Localização:** `app/modules/addons/academic`
+- **Responsabilidade:** Estrutura Académica (Universidades, Unidades, Cursos, Disciplinas, Tópicos hierárquicos), Gestão e Provas de Exames de Acesso, Banco de Questões com alternativas/soluções/explicações didáticas, esteira de estados e moderação humana de IA, versionamento de revisões (`QuestionRevision`) e metas de preparação do estudante (`PreparationGoal`).
+- **Estado da Implementação & Integração:**
+  - `[x]` 11 Entidades de Domínio (`domain/entities/`) com invariantes e eventos.
+  - `[x]` 8 Casos de uso implementados com Portas em `ports/` e testes unitários 100% isolados com Sinon (`*.spec.ts`).
+  - `[x]` 11 Lucid Models com Soft Delete e relações completas (`framework/infra/db/models/`).
+  - `[x]` 12 Migrations de banco de dados MySQL (`framework/infra/db/migrations/`).
+  - `[x]` 4 Seeders (Permissões, Root ACL, Menus e Dados Ricos de Amostra) (`framework/infra/db/seeders/`).
+  - `[x]` 8 Páginas Inertia.js com design system (`framework/views/`).
+  - `[x]` Teste de Integração E2E ponta a ponta (`framework/tests/integration/academic_e2e_integration.test.ts`).
+  - `[x]` Rotas HTTP protegidas com `middleware.auth()` e `middleware.can(...)`.
+- **Documentação de Requisitos:** [module-01-master-prompt.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/module-01-master-prompt.md)
+- **Plano Técnico de Integração E2E:** [module-01-e2e-master-prompt.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/module-01-e2e-master-prompt.md)
+- **Documentação do Módulo:** [addons-academic.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-academic.md)
+
+
+

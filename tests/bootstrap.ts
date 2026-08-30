@@ -32,15 +32,13 @@ export const plugins: Config['plugins'] = [
   pluginAdonisJS(app),
   apiClient(),
   shieldApiClient(),
-  pluginAdonisJS(app),
   sessionBrowserClient(app),
   authBrowserClient(app),
   sessionApiClient(app),
   authApiClient(app),
   browserClient({
-    runInSuites: ['browser'],
+    runInSuites: ['browser', 'functional'],
     contextOptions: {
-      baseURL: process.env.APP_INTERNAL_URL,
     },
   }),
   inertiaApiClient(app),

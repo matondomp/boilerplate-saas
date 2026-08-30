@@ -119,7 +119,7 @@ export default defineConfig({
       {
         name: 'browser',
         timeout: 60000,
-        files: ['app/modules/**/*.browser.ts'],
+        files: ['app/modules/**/*.browser.ts', 'app/modules/**/*.browser.js'],
       },
     ],
     forceExit: false,
