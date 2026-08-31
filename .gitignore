@@ -26,7 +26,7 @@ yarn-error.log
 
 vite.config.ts.timestamp-*
 
-#app/modules/addons/**/*
+app/modules/addons/**/*
 
 resources/lang/*.json
 
