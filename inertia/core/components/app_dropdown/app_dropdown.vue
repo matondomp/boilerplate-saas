@@ -2,21 +2,29 @@
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@core/utilities/cn.js'
 
-const props = withDefaults(defineProps<{ class?: HTMLAttributes['class']; summary?: boolean }>(), {
+interface DropdownProps {
+  class?: any
+  summary?: boolean
+  fullWidth?: boolean
+}
+
+const props = withDefaults(defineProps<DropdownProps>(), {
   summary: false,
   class: [],
+  fullWidth: false,
 })
 </script>
 
 <template>
   <template v-if="summary">
-    <details class="dropdown dropdown-end">
+    <details :class="cn(['dropdown dropdown-end', { 'w-full': fullWidth }])">
       <summary
         tabindex="0"
         role="button"
         :class="
           cn([
             'flex text-sm dark:hover:text-white dark:focus:text-white hover:text-base-300 focus:text-base-300',
+            { 'w-full': fullWidth },
             props.class,
           ])
         "
@@ -35,13 +43,14 @@ const props = withDefaults(defineProps<{ class?: HTMLAttributes['class']; summar
     </details>
   </template>
   <template v-else>
-    <div class="dropdown dropdown-end">
+    <div :class="cn(['dropdown dropdown-end', { 'w-full': fullWidth }])">
       <div
         tabindex="0"
         role="button"
         :class="
           cn([
             'flex text-sm dark:hover:text-white dark:focus:text-white hover:text-base-300 focus:text-base-300',
+            { 'w-full': fullWidth },
             props.class,
           ])
         "

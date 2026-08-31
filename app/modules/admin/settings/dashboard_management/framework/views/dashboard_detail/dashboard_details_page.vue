@@ -144,7 +144,7 @@ onMounted(() => {
             </FwbButton>
           </div>
         </AppWorkInProgress>
-        <div class="flex justify-between mt-5">
+        <div class="flex flex-col lg:flex-row justify-between mt-5">
           <div
             id="dropzone"
             ref="placedItemsContainer"
@@ -210,5 +210,23 @@ onMounted(() => {
   transform: translateX(100%);
   width: 0;
   padding: 0;
+}
+
+@media (max-width: 1023px) {
+  .giveSpaceToItemsList {
+    width: 100% !important;
+  }
+  aside {
+    width: 100% !important;
+    border-left: none !important;
+    border-top: 1px solid rgb(75 85 99) !important;
+    padding-left: 0 !important;
+    padding-top: 1rem !important;
+  }
+  .hideItemsList {
+    transform: translateY(100%) !important;
+    height: 0 !important;
+    width: 100% !important;
+  }
 }
 </style>

@@ -86,7 +86,7 @@ onMounted(() => {
           <div
             v-for="item in dashboardItems"
             :key="item.name"
-            class="dark:bg-base-200 border pt-3 pb-5 border-base-200 rounded-lg shadow absolute"
+            class="dark:bg-base-200 border pt-3 pb-5 border-base-200 rounded-lg shadow absolute dashboard-item-responsive"
             :style="{
               left: `${item.x}%`,
               top: `${item.y}%`,
@@ -104,3 +104,15 @@ onMounted(() => {
     </template>
   </AccountLayout>
 </template>
+
+<style scoped>
+@media (max-width: 1023px) {
+  .dashboard-item-responsive {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 350px;
+    margin-bottom: 1.5rem !important;
+  }
+}
+</style>

@@ -15,7 +15,8 @@ export const useTable = () => {
   )
 
   const handleTableFilters = (params: any) => {
-    router.get('', { ...params })
+    const currentParams = Object.fromEntries(new URLSearchParams(window.location.search))
+    router.get('', { ...currentParams, ...params })
   }
 
   const handleSort = (column: ColumnProps, pagination: { sort?: string; direction?: string }) => {

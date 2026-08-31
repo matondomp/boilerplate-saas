@@ -28,6 +28,7 @@ defineProps<Props>()
       },
       {
         'md:grid-cols-1': full,
+        'justify-items-stretch text-left': full,
       },
     ]"
   >

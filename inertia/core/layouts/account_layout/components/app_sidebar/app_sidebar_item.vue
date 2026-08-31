@@ -5,11 +5,14 @@ import type { AppSidebarItemProp } from './types.js'
 import { AppIcon, RouterLink } from '@core/components/index.js'
 import AppSidebarItem from './app_sidebar_item.vue'
 
-defineProps<AppSidebarItemProp>()
-
-const show = ref(false)
+const props = defineProps<AppSidebarItemProp>()
 
 const url = computed(() => usePage().url)
+const hasActiveChild = computed(() => {
+  return props.item.children?.some((child) => url.value.startsWith(child.url)) ?? false
+})
+
+const show = ref(hasActiveChild.value)
 </script>
 
 <template>

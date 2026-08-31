@@ -4,6 +4,7 @@ import { BaseModel, beforeCreate, beforeFetch, beforeSave, column } from '@adoni
 import { slugifyAdapter } from '#app/db/adapters/slugify_adapter_impl'
 
 export interface Menu {
+  slug: string
   display: string
   url: string
   icon?: string
@@ -72,8 +73,9 @@ export class CoreMenuModel extends BaseModel {
 
   static loadMenuBasedInUserPermissions(permissions: string[]) {
     return CoreMenuModel.query()
-      .whereNull('permissionId')
-      .orWhereIn('permission_id', permissions)
+      .where((query) => {
+        query.whereNull('permission_id').orWhereIn('permission_id', permissions)
+      })
       .andWhereNull('deleted_at')
       .orderBy('order', 'asc')
       .then((menus) => {
@@ -82,6 +84,7 @@ export class CoreMenuModel extends BaseModel {
         return principalMenus
           .map((menu) => {
             return this.constructMenuMapped({
+              slug: menu.slug,
               display: menu.display,
               icon: menu.icon,
               url: menu.url,
@@ -93,8 +96,9 @@ export class CoreMenuModel extends BaseModel {
       })
   }
 
-  private static constructMenuMapped(menu: Menu): Menu {
+  private static constructMenuMapped(menu: any): Menu {
     return {
+      slug: menu.slug,
       display: menu.display,
       url: menu.url,
       icon: menu.icon,
@@ -104,8 +108,7 @@ export class CoreMenuModel extends BaseModel {
   }
 
   private static createSubMenuStructure(originalMenuArray: any, belongsTo?: string) {
-    let onlyBelongsToArray = originalMenuArray.filter((menu: any) => menu.belongsTo === belongsTo)
-    onlyBelongsToArray = onlyBelongsToArray.sort((a: any, b: any) => (a > b ? -1 : 1))
+    const onlyBelongsToArray = originalMenuArray.filter((menu: any) => menu.belongsTo === belongsTo)
 
     if (!onlyBelongsToArray.length) {
       return
@@ -116,6 +119,7 @@ export class CoreMenuModel extends BaseModel {
     for (let subMenu of onlyBelongsToArray) {
       three.push(
         this.constructMenuMapped({
+          slug: subMenu.slug,
           display: subMenu.display,
           url: subMenu.url,
           icon: subMenu.icon,

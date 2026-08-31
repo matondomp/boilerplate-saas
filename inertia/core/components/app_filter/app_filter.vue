@@ -131,12 +131,12 @@ onMounted(() => {
 <template>
   <div id="app-filter" class="relative md:w-3/4">
     <div class="add-filters">
-      <AppDropdown class="relative">
+      <AppDropdown class="relative" :full-width="true">
         <template #header>
-          <AppButton color="primary">
-            <div class="flex items-center justify-between">
+          <AppButton color="primary" classes="w-full">
+            <div class="flex items-center justify-between w-full">
               <p>{{ $t('shared.add_filter') }}</p>
-              <PlusIcon class="w-4" />
+              <PlusIcon class="w-4 ml-2" />
             </div>
           </AppButton>
         </template>

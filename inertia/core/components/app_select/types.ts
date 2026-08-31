@@ -1,6 +1,7 @@
 type Option = {
-  value: string
-  name: string
+  value: any
+  name?: string
+  label?: string
 }
 export type Props = {
   label?: string

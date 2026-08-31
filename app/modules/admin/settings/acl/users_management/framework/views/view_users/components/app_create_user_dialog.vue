@@ -202,29 +202,28 @@ const submitButtonText = computed(() =>
               />
             </div>
 
-            <div class="flex justify-end">
-              <FwbButtonGroup>
-                <AppButton
-                  v-if="!isUpdating"
-                  type="button"
-                  size="sm"
-                  :loading="state.loading === 'create_continue'"
-                  :color="'alternative'"
-                  :disabled="!checkPermission(exactPermission)"
-                  @click="onSubmit(true)"
-                >
-                  {{ $t('admin.acl.users.create') }}
-                </AppButton>
-                &nbsp;
-                <AppButton
-                  type="submit"
-                  size="sm"
-                  :loading="state.loading === 'create_close'"
-                  :disabled="!checkPermission(exactPermission)"
-                >
-                  {{ submitButtonText }}
-                </AppButton>
-              </FwbButtonGroup>
+            <div class="flex flex-col sm:flex-row justify-end gap-3 w-full">
+              <AppButton
+                v-if="!isUpdating"
+                type="button"
+                size="sm"
+                classes="w-full sm:w-auto"
+                :loading="state.loading === 'create_continue'"
+                :color="'alternative'"
+                :disabled="!checkPermission(exactPermission)"
+                @click="onSubmit(true)"
+              >
+                {{ $t('admin.acl.users.create') }}
+              </AppButton>
+              <AppButton
+                type="submit"
+                size="sm"
+                classes="w-full sm:w-auto"
+                :loading="state.loading === 'create_close'"
+                :disabled="!checkPermission(exactPermission)"
+              >
+                {{ submitButtonText }}
+              </AppButton>
             </div>
           </form>
         </main>

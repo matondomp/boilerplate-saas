@@ -34,7 +34,7 @@ export class CaptureErrorDecorator implements Controller<HttpContext> {
       return this.controller
         .perform(input)
         .catch((e) => {
-          const isApi = /^\/api\//.test(input.route?.pattern || '')
+          const isApi = /^\/api\//.test(input.route?.pattern || '') && !!!input.request.header('x-inertia')
 
           if (['E_VALIDATION_ERROR'].includes(e.code)) {
             if (!e.messages.errors) {

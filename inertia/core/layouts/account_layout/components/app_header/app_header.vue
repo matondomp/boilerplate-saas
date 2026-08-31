@@ -24,7 +24,7 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
     <div class="">
       <div class="flex justify-between h-full">
         <div class="flex">
-          <div class="bg-white w-64 flex items-center justify-center">
+          <div class="bg-white w-auto lg:w-64 px-4 flex items-center justify-center">
             <RouterLink href="/account/dashboard" class="flex items-baseline">
               <img
                 v-if="headers.appLogo"
@@ -44,9 +44,8 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
               aria-expanded="true"
               aria-controls="sidebar"
               class="p-2 text-gray-50 bg-transparent cursor-pointer hover:text-gray-300 block"
-              
+              @click="$emit('toggle-sidebar')"
             >
-            <!-- @click="$emit('toggle-sidebar')" -->
               <svg
                 id="toggleSidebarMobileHamburger"
                 :class="['w-6 h-6', { hidden: showSidebar }]"

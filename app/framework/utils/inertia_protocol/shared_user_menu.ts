@@ -2,6 +2,7 @@ import { CoreMenuModel } from '#shared/framework/infra/index'
 import { HttpContext } from '@adonisjs/core/http'
 
 type MenuProps = {
+  slug: string
   display: string
   icon?: string
   isGroup: boolean

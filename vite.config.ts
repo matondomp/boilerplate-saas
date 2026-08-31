@@ -10,6 +10,14 @@ export default defineConfig({
     vue(),
     adonisjs({ entrypoints: ['inertia/app/app.ts'], reload: ['resources/views/**/*.edge'] }),
   ],
+  server: {
+    host: true,
+    watch: {
+      usePolling: true,
+      interval: 1000,
+      ignored: ['**/node_modules/**', '**/build/**', '**/.git/**'],
+    },
+  },
 
   /**
    * Define aliases for importing modules from

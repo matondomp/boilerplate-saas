@@ -102,40 +102,39 @@ onMounted(() => {
           />
         </div>
 
-        <div class="flex justify-end">
-          <FwbButtonGroup class="flex">
-            <AppButton
-              id="create-dashboard-then-redirect"
-              size="sm"
-              v-if="!isEditing"
-              color="alternative"
-              :loading="form.loading && createAndRedirect"
-              class="mr-5"
-              @click="
-                () => {
-                  createAndRedirect = true
-                  onSubmit()
-                }
-              "
-            >
-              {{ $t('dashboard_management.create.redirect') }}
-            </AppButton>
+        <div class="flex flex-col sm:flex-row justify-end gap-3 w-full">
+          <AppButton
+            id="create-dashboard-then-redirect"
+            size="sm"
+            v-if="!isEditing"
+            color="alternative"
+            classes="w-full sm:w-auto"
+            :loading="form.loading && createAndRedirect"
+            @click="
+              () => {
+                createAndRedirect = true
+                onSubmit()
+              }
+            "
+          >
+            {{ $t('dashboard_management.create.redirect') }}
+          </AppButton>
 
-            <AppButton
-              id="create-update-dashboard-button"
-              size="sm"
-              type="button"
-              :loading="form.loading && !createAndRedirect"
-              @click="
-                () => {
-                  createAndRedirect = false
-                  onSubmit()
-                }
-              "
-            >
-              {{ $t(buttonText) }}
-            </AppButton>
-          </FwbButtonGroup>
+          <AppButton
+            id="create-update-dashboard-button"
+            size="sm"
+            type="button"
+            classes="w-full sm:w-auto"
+            :loading="form.loading && !createAndRedirect"
+            @click="
+              () => {
+                createAndRedirect = false
+                onSubmit()
+              }
+            "
+          >
+            {{ $t(buttonText) }}
+          </AppButton>
         </div>
       </form>
     </div>

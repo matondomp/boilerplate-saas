@@ -149,7 +149,7 @@ watch(
       <main>
         <div class="px-4">
           <AppWorkInProgress extra>
-            <div class="flex items-center justify-between">
+            <div class="flex flex-col md:flex-row md:justify-between items-stretch md:items-center gap-4">
               <AppFilter
                 :filters="filters"
                 @filter-updated="(queryString) => setQueryString(queryString)"
@@ -157,6 +157,7 @@ watch(
               <AppButton
                 id="extract-logs"
                 class="text-sm mt-1 px-4 py-2 h-[42px]"
+                classes="w-full md:w-auto"
                 @click="toggleExtractLog"
               >
                 {{ $t('admin.audit.log.extract.button.extract') }}
@@ -280,7 +281,7 @@ watch(
               <section
                 :class="['mt-5 overflow-hidden flex-col', { 'hide-log': !isFullLogVisible }]"
               >
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col md:flex-row md:justify-between items-stretch md:items-center gap-4">
                   <div class="flex items-center relative z-50 cursor-pointer" @click="toggleLog()">
                     <h3 :class="`${sectionTitle}`">
                       {{ $t('admin.audit.log.fullLog') }}
@@ -333,5 +334,25 @@ watch(
 
 .hide-log .full-log {
   height: 0;
+}
+
+@media (max-width: 1023px) {
+  .card-detail {
+    position: fixed !important;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin-right: -100% !important;
+    max-height: 100vh !important;
+  }
+  .show-log-detail .table {
+    width: 100% !important;
+  }
+  .show-log-detail .card-detail {
+    margin-right: 0 !important;
+  }
 }
 </style>

@@ -41,10 +41,10 @@ defineProps<{ showSidebar: boolean }>()
         </div>
       </div>
     </div>
-    <AppFooter  center-text="true"/>
+    <AppFooter  :center-text="true"/>
   </aside>
   <div
     id="sidebarBackdrop"
-    :class="['fixed inset-0 z-10 bg-gray-900/50 dark:bg-gray-900/90', { hidden: !showSidebar }]"
+    :class="['fixed inset-0 z-10 bg-gray-900/50 dark:bg-gray-900/90 lg:hidden', { hidden: !showSidebar }]"
   />
 </template>

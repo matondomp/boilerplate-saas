@@ -200,7 +200,7 @@ onMounted(() => {
         <div class="px-4">
           <AppWorkInProgress extra>
             <template #default>
-              <div class="flex flex-col md:flex-row md:justify-between">
+              <div class="flex flex-col md:flex-row md:justify-between items-stretch md:items-center gap-4">
                 <AppFilter
                   :filters="filters"
                   @filter-updated="() => router.reload({ only: ['content'] })"
@@ -208,6 +208,7 @@ onMounted(() => {
                 <AppButton
                   id="btn-create-user"
                   size="md"
+                  classes="w-full md:w-auto"
                   :disabled="!checkPermission('admin-acl-create-user')"
                   onclick="create_user_modal.showModal()"
                 >

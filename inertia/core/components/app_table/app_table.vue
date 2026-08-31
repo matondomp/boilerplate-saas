@@ -9,6 +9,18 @@ import { ColumnProps, TableProps } from './types.js'
 const props = defineProps<TableProps>()
 const emit = defineEmits(['update:selected'])
 
+const normalizedColumns = computed(() => {
+  return props.columns.map((col) => {
+    return {
+      ...col,
+      field: col.field || col.key,
+      headerName: col.headerName || col.label,
+      slot: col.slot !== undefined ? col.slot : (col.key !== 'actions'),
+      actions: col.actions !== undefined ? col.actions : (col.key === 'actions'),
+    }
+  })
+})
+
 const componentProps = (column: ColumnProps, row: any) => {
   const keys = Object.keys(column.componentProps)
   const props = {}
@@ -46,7 +58,7 @@ watch(
     <!-- <div v-if="selectedState.allSelected" class="mx-4"> -->
     <!--   <AppWorkInProgress /> -->
     <!-- </div> -->
-    <div class="md:overflow-visible w-full">
+    <div class="overflow-x-auto md:overflow-visible w-full">
       <table class="table table-xs">
         <thead>
           <tr>
@@ -62,7 +74,7 @@ watch(
                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
               </div>
             </th>
-            <template v-for="(column, i) in columns" :key="(column as any).key">
+            <template v-for="(column, i) in normalizedColumns" :key="(column as any).key">
               <th
                 v-if="!column.actions"
                 scope="col"
@@ -118,7 +130,7 @@ watch(
               </div>
             </td>
             <!-- End FwbCheckbox -->
-            <template v-for="(column, i) in columns" :key="column.key">
+            <template v-for="(column, i) in normalizedColumns" :key="column.key">
               <td
                 :class="
                   cn([
@@ -157,7 +169,7 @@ watch(
             </template>
           </tr>
           <tr v-show="!data.length">
-            <td :colspan="columns.length + 5" class="text-center w-4 p-4">
+            <td :colspan="normalizedColumns.length + 5" class="text-center w-4 p-4">
               {{ $t('shared.empty') }}
             </td>
           </tr>
@@ -170,13 +182,13 @@ watch(
           size="sm"
           :options="perPageOptions"
           :model-value="pagination.perPage.toString()"
-          @update:model-value="(e) => handleTableFilters({ perPage: e, page: pagination?.page })"
+          @update:model-value="(e) => handleTableFilters({ perPage: e, page: pagination?.page || pagination?.currentPage })"
         />
       </div>
       <div class="join">
         <VueAwesomePaginate
           :total-items="pagination.total"
-          :model-value="pagination.page"
+          :model-value="pagination.page || pagination.currentPage"
           :on-click="(page: number) => handleTableFilters({ page, perPage: pagination?.perPage })"
           :items-per-page="pagination.perPage"
           :max-pages-shown="4"

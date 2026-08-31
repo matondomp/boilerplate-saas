@@ -141,7 +141,7 @@ const removeItemFromDashboard = async () => {
 <template>
   <div
     ref="component"
-    class="flex-column bg-white border pt-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 absolute"
+    class="flex-column bg-white border pt-3 border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 absolute dashboard-item-responsive"
     :style="{
       left: `${itemData.x}%`,
       top: `${itemData.y}%`,
@@ -220,5 +220,15 @@ const removeItemFromDashboard = async () => {
 
 .apexcharts-tooltip span {
   color: #ffffff !important;
+}
+
+@media (max-width: 1023px) {
+  .dashboard-item-responsive {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 350px !important;
+    margin-bottom: 1.5rem !important;
+  }
 }
 </style>
