@@ -6,5 +6,6 @@ export type SlidebarMenu = {
 
 export type AppSidebarItemProp = {
   item: MenuProp
-  subSlide: boolean
+  subSlide?: boolean
+  activeOpenSlug?: string | null
 }

@@ -1,0 +1,595 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Módulo 02 — Student & Preparation Goals API",
+    "description": "Especificação OpenAPI 3.0 completa do módulo de Aluno, Perfil e Objetivos de Preparação (Módulo 02).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1/student",
+      "description": "Servidor Local"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "StudentProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "studentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullName": {
+            "type": "string",
+            "example": "Matondo Pedro"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true,
+            "example": "+244923456789"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "preferredLanguage": {
+            "type": "string",
+            "example": "pt"
+          },
+          "birthYear": {
+            "type": "integer",
+            "nullable": true,
+            "example": 2002
+          }
+        }
+      },
+      "PreparationGoal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "studentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "universityId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "courseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "targetYear": {
+            "type": "integer",
+            "example": 2027
+          },
+          "status": {
+            "type": "string",
+            "example": "ACTIVE"
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "example": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "CreateGoalPayload": {
+        "type": "object",
+        "required": [
+          "universityId",
+          "courseId",
+          "targetYear"
+        ],
+        "properties": {
+          "universityId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "courseId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "targetYear": {
+            "type": "integer",
+            "example": 2027
+          },
+          "targetExamId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "targetExamPeriod": {
+            "type": "string",
+            "nullable": true
+          },
+          "isPrimary": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      },
+      "UpdateProfilePayload": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "example": "Matondo Pedro"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+244923456789"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
+          "preferredLanguage": {
+            "type": "string",
+            "example": "pt"
+          },
+          "birthYear": {
+            "type": "integer",
+            "example": 2002
+          }
+        }
+      },
+      "SetPrimaryGoalPayload": {
+        "type": "object",
+        "required": [
+          "goalId"
+        ],
+        "properties": {
+          "goalId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ApiResponseSuccess": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      },
+      "ApiResponseError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/goals": {
+      "get": {
+        "summary": "Listar Objetivos do Aluno",
+        "description": "Retorna todos os objetivos de preparação cadastrados pelo aluno autenticado.",
+        "responses": {
+          "200": {
+            "description": "Lista de objetivos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PreparationGoal"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Não autorizado"
+          }
+        }
+      },
+      "post": {
+        "summary": "Criar Objetivo de Preparação",
+        "description": "Cria um novo objetivo de preparação para um curso de uma universidade.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGoalPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Objetivo criado com sucesso"
+          },
+          "400": {
+            "description": "Dados inválidos"
+          },
+          "409": {
+            "description": "Objetivo já existente para este ano/curso"
+          }
+        }
+      }
+    },
+    "/goals/primary": {
+      "patch": {
+        "summary": "Definir Objetivo Principal",
+        "description": "Define um objetivo específico como a meta principal de estudos do aluno.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetPrimaryGoalPayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Objetivo principal atualizado"
+          },
+          "404": {
+            "description": "Objetivo não encontrado"
+          }
+        }
+      }
+    },
+    "/goals/{id}/pause": {
+      "post": {
+        "summary": "Pausar Objetivo de Preparação",
+        "description": "Altera o status do objetivo de ACTIVE para PAUSED.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Objetivo pausado com sucesso"
+          },
+          "404": {
+            "description": "Objetivo não encontrado"
+          }
+        }
+      }
+    },
+    "/goals/{id}/resume": {
+      "post": {
+        "summary": "Retomar Objetivo de Preparação",
+        "description": "Altera o status do objetivo de PAUSED para ACTIVE.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Objetivo retomado com sucesso"
+          },
+          "404": {
+            "description": "Objetivo não encontrado"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "summary": "Obter Perfil do Aluno",
+        "description": "Retorna as informações complementares de perfil do aluno autenticado.",
+        "responses": {
+          "200": {
+            "description": "Dados do perfil",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentProfile"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar Perfil do Aluno",
+        "description": "Atualiza os dados de perfil (nome completo, telefone, ano de nascimento, etc.).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfilePayload"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Perfil atualizado com sucesso"
+          }
+        }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Student Auth"
+        ],
+        "summary": "Mobile Student Registration (Signup)",
+        "description": "Registers a new student account, initializes profile, and returns an API Bearer token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password",
+                  "fullName"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "aluno@exemplo.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "SenhaSegura123!"
+                  },
+                  "fullName": {
+                    "type": "string",
+                    "example": "João Manuel Silva"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+244923111222"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estudante registado com sucesso e token retornado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Dados inválidos ou email já registado"
+          }
+        }
+      }
+    },
+    "/auth/forgot-password": {
+      "post": {
+        "tags": [
+          "Student Auth"
+        ],
+        "summary": "Request Password Recovery Email",
+        "description": "Sends a password recovery email containing a reset token to the registered email.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "aluno@exemplo.com"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "E-mail de recuperação enviado com sucesso (caso o e-mail exista)"
+          },
+          "400": {
+            "description": "Dados de requisição inválidos"
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "post": {
+        "tags": [
+          "Student Auth"
+        ],
+        "summary": "Reset Student Password with Token",
+        "description": "Resets the student password using the token received via email.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "token",
+                  "password"
+                ],
+                "properties": {
+                  "token": {
+                    "type": "string",
+                    "example": "abc123tokenhash"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "NovaSenhaSegura123!"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Senha redefinida com sucesso"
+          },
+          "400": {
+            "description": "Token inválido, expirado ou senha fraca"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Student Auth"
+        ],
+        "summary": "Mobile Student Authentication (Signin / Login)",
+        "description": "Authenticates a registered student and returns an API Bearer token.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "aluno@exemplo.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "SenhaSegura123!"
+                  },
+                  "rememberMe": {
+                    "type": "boolean",
+                    "example": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estudante autenticado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Autenticado com sucesso"
+                    },
+                    "token": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "example": "bearer"
+                        },
+                        "value": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          },
+          "400": {
+            "description": "Dados de requisição inválidos"
+          }
+        }
+      }
+    }
+  }
+}

@@ -129,7 +129,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="app-filter" class="relative md:w-3/4">
+  <div id="app-filter" class="relative w-full">
     <div class="add-filters">
       <AppDropdown class="relative" :full-width="true">
         <template #header>

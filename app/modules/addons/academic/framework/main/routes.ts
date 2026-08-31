@@ -7,7 +7,6 @@ import {
   makeChangeUniversityStatusControllerFactory,
   makeCreateCourseControllerFactory,
   makeCreateExamControllerFactory, makeUpdateExamControllerFactory,
-  makeCreatePreparationGoalControllerFactory,
   makeCreateQuestionControllerFactory,
   makeCreateSubjectControllerFactory,
   makeCreateTopicControllerFactory,
@@ -336,18 +335,3 @@ router
   .prefix('/api/v1/academic')
   .middleware([middleware.auth()])
 
-// Rotas do Estudante (Preparação e Metas)
-router
-  .group(() => {
-    router
-      .post(
-        '/goals',
-        routeAdapter(makeCreatePreparationGoalControllerFactory(), {
-          operation: 'student-create-preparation-goal',
-          description: '[Student] Create a new preparation goal for target course/university',
-        })
-      )
-      .as('goals.create')
-  })
-  .prefix('/api/v1/student')
-  .middleware([middleware.auth()])

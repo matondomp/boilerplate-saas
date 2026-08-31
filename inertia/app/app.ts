@@ -24,17 +24,15 @@ messages().then((m) => {
     title: (title) => `${title}`,
 
     resolve: (component) => {
-      const pages = import.meta.glob<DefineComponent>('../../app/modules/**/*_page.vue')
-
+      const pages = import.meta.glob<DefineComponent>('../../app/modules/**/*_page.vue', { eager: true })
       const keys = Object.keys(pages)
-
       const c = keys.find((k) => k.includes(component))
 
       if (!c) {
         throw new Error(`${component} was not found!`)
       }
 
-      return pages[c]()
+      return (pages[c] as any).default || pages[c]
     },
 
     setup({ el, App, props, plugin }) {

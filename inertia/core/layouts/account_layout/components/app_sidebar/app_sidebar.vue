@@ -7,6 +7,19 @@ import { MenuProp } from '@core/types/index.js'
 
 const menu = computed(() => usePage().props.menu as MenuProp[])
 
+const allUrls = computed(() => {
+  const urls: string[] = []
+  if (!menu.value) return urls
+  const collect = (items: MenuProp[]) => {
+    for (const item of items) {
+      if (item.url) urls.push(item.url.split('?')[0])
+      if (item.children) collect(item.children)
+    }
+  }
+  collect(menu.value)
+  return urls
+})
+
 defineProps<{ showSidebar: boolean }>()
 </script>
 
@@ -23,7 +36,7 @@ defineProps<{ showSidebar: boolean }>()
       <div class="flex flex-col flex-1 pt-5 pb-4 overflow-y-auto">
         <div class="flex-1 px-0 space-y-1 divide-y divide-gray-700 dark:divide-[#02507C]">
           <ul class="pb-2 space-y-2">
-            <AppSidebarGroup :menus="menu" />
+            <AppSidebarGroup :menus="menu" :all-urls="allUrls" />
           </ul>
           <div class="pt-2 space-y-2">
             <a
@@ -41,7 +54,7 @@ defineProps<{ showSidebar: boolean }>()
         </div>
       </div>
     </div>
-    <AppFooter  :center-text="true"/>
+    <AppFooter :center-text="true"/>
   </aside>
   <div
     id="sidebarBackdrop"
