@@ -1,0 +1,11 @@
+export * from './create_university/index.js'
+export * from './create_course/index.js'
+export * from './create_subject/index.js'
+export * from './create_topic/index.js'
+export * from './create_exam/index.js'
+export * from './create_question/index.js'
+export * from './update_question/index.js'
+export * from './change_question_status/index.js'
+export * from './create_preparation_goal/index.js'
+
+export * from './update_university/index.js'

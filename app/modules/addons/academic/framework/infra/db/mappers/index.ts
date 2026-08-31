@@ -1,0 +1,7 @@
+export * from './university_mapper.js'
+export * from './course_mapper.js'
+export * from './subject_mapper.js'
+export * from './topic_mapper.js'
+export * from './exam_mapper.js'
+export * from './question_mapper.js'
+export * from './preparation_goal_mapper.js'

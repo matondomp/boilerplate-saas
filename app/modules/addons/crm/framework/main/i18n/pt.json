@@ -1,0 +1,7 @@
+{
+    "menu.main.client_management.client": "Listagem do cliente",
+    "menu.main.client_management.crm": "Gestão de Clientes",
+    "permission.create.client": "Listagem",
+    "permission.group.group_crm": "Gestão de clintes",
+    "permission.create.client.description": "Permissão para Listagem de cliente"
+}  

@@ -1,0 +1,12 @@
+export * from './entities/client_entity.js'
+export * from '../../Residence/entities/residence_entity.js'
+export * from './entities/entity_type_entity.js'
+export * from './entities/client_type_entity.js'
+export * from './entities/direction_entity.js'
+export * from '../cativating_entities/entities/type_identity_cativating_entity.js'
+export * from '../cativating_entities/entities/cativating_entity_entity.js'
+export * from '../bank/entities/bankEntity.js'
+export * from '../bank/entities/bank_account_entity.js'
+export * from '../bank/entities/account_manager_entity.js'
+export * from '../../Residence/entities/residence_entity.js'
+

@@ -1,0 +1,6 @@
+export * from './university_repositories_impl.js'
+export * from './course_repositories_impl.js'
+export * from './subject_topic_repositories_impl.js'
+export * from './exam_repositories_impl.js'
+export * from './question_repositories_impl.js'
+export * from './preparation_goal_repositories_impl.js'

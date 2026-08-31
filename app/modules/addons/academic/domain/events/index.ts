@@ -1,0 +1,6 @@
+export * from './university_created_event.js'
+export * from './course_created_event.js'
+export * from './exam_published_event.js'
+export * from './question_status_changed_event.js'
+export * from './question_revision_created_event.js'
+export * from './preparation_goal_created_event.js'

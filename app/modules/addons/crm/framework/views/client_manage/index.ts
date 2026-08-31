@@ -1,0 +1,1 @@
+export { default as ClientPage } from './client_page.vue'
