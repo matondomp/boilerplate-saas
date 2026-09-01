@@ -28,7 +28,7 @@ const env = computed(() => usePage().props.env)
         href="/security/auth/login"
         class="app-logo flex items-center justify-center mb-4 text-3xl md:text-4xl font-semibold dark:text-white"
       >
-        <img :src="'/assets/imgs/logo.png'" class="h-12 object-contain" alt="NEXA" />
+        <img :src="'/assets/imgs/nexa_form_logo.png'" class="h-14 object-contain" alt="NEXA" />
       </RouterLink>
       <p class="mb-6 text-xs md:text-sm font-normal text-gray-500 dark:text-gray-400">
       </p>
