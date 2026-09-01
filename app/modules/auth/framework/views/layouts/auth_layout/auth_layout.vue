@@ -24,19 +24,15 @@ const env = computed(() => usePage().props.env)
   </AppAlert>
   <div class="md:h-screen md:grid grid-cols-2">
     <div class="flex flex-col items-center justify-center px-6 pt-8 mx-auto md:h-screen pt:mt-0">
-     
-
       <RouterLink
         href="/security/auth/login"
-        class="app-logo flex items-center justify-center mbDesconectado-2 text-3xl md:text-4xl font-semibold dark:text-white"
+        class="app-logo flex items-center justify-center mb-2 text-3xl md:text-4xl font-semibold dark:text-white"
       >
-      <img  :src="'http://water-adem.itgest.co.ao/assets/imgs/companies/adem_mz.png'" class="w-24" :alt="headers.appName" />
-       <!--  {{ headers.appName }} -->
+        <img :src="'http://water-adem.itgest.co.ao/assets/imgs/companies/adem_mz.png'" class="w-24" :alt="headers.appName" />
       </RouterLink>
       <p class="mb-6 text-xs md:text-sm font-normal text-gray-500 dark:text-gray-400">
-      <!--   {{ headers.appDesc }} -->
       </p>
-      <div class="w-full p-6 rounded-lg   md:w-[400px]">
+      <div class="w-full p-6 rounded-lg md:w-[400px]">
         <AppAlert v-if="alert" :type="alert.success ? 'success' : 'error'" icon>
           {{ alert.message }}
         </AppAlert>
@@ -44,6 +40,6 @@ const env = computed(() => usePage().props.env)
       </div>
       <AppFooter center-text />
     </div>
-    <div class="bg-[url('http://water-adem.itgest.co.ao/assets/dist/img/bw_landing.png')] bg-cover hidden md:block" ></div>
+    <div class="bg-[url('/assets/imgs/login_bg.jpg')] bg-cover bg-center hidden md:block"></div>
   </div>
 </template>
