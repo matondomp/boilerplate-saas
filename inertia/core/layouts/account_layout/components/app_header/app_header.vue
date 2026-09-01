@@ -27,7 +27,7 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
           <div class="bg-white w-auto lg:w-64 px-4 flex items-center justify-center">
             <RouterLink href="/account/dashboard" class="flex items-center justify-center">
               <img
-                src="/assets/imgs/logo.png"
+                :src="'/assets/imgs/logo.png'"
                 class="h-9 object-contain"
                 alt="NEXA"
               />
@@ -72,7 +72,7 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
         </div>
 
         <div class="flex items-center justify-center">
-          <img src="/assets/imgs/nexa_white_header.png" class="h-8 object-contain" alt="NEXA" />
+          <img :src="'/assets/imgs/nexa_white_header.png'" class="h-8 object-contain" alt="NEXA" />
         </div>
 
         <div class="flex items-center justify-center gap-3 pr-4">
