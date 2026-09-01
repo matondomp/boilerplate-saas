@@ -17,7 +17,7 @@ export const sharedAppDetails = async (): Promise<AppDetail | undefined> => {
     return {
       appName: 'NEXA',
       appDesc: 'NEXA Platform',
-      appLogo: '/assets/imgs/nexa_header_dynamic.png',
+      appLogo: '/assets/imgs/nexa_white_header.png',
       appBackgroundPrimaryColor: '#f9f9fa',
       appBackgroundSecondaryColor: '#f5f5f6',
       appColorPrimary: '#448bff',
@@ -26,9 +26,9 @@ export const sharedAppDetails = async (): Promise<AppDetail | undefined> => {
   }
 
   return {
-    appName: appDetail.appName,
-    appDesc: appDetail.appDesc,
-    appLogo: appDetail.imageUrl || '/assets/imgs/nexa_header_dynamic.png',
+    appName: appDetail.appName || 'NEXA',
+    appDesc: appDetail.appDesc || 'NEXA Platform',
+    appLogo: '/assets/imgs/nexa_white_header.png',
     appBackgroundPrimaryColor: appDetail.appBackgroundPrimaryColor,
     appBackgroundSecondaryColor: appDetail.appBackgroundPrimaryColor,
     appColorPrimary: appDetail.appColorPrimary,
