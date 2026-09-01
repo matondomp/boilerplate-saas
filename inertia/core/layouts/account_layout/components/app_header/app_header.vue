@@ -72,7 +72,7 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
         </div>
 
         <div class="flex items-center justify-center">
-          <img src="/assets/imgs/logo.png" class="h-8 object-contain brightness-0 invert" alt="NEXA" />
+          <img src="/assets/imgs/nexa_white_header.png" class="h-8 object-contain" alt="NEXA" />
         </div>
 
         <div class="flex items-center justify-center gap-3 pr-4">
