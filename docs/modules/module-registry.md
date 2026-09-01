@@ -20,6 +20,7 @@
 | **Admin::DashboardManagement** | `IMPLEMENTED` | `app/modules/admin/settings/dashboard_management` | Construtor de dashboards e widgets customizados | `@core`, `shared` | Admin Dashboard | [admin-dashboard-management.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/admin-dashboard-management.md) | 2026-08-15 |
 | **Addons::CRM** | `IN_PROGRESS` | `app/modules/addons/crm` | Gestão de Clientes, Entidades Cativantes e Bancos | `@core`, `shared` | UI de Vendas | [addons-crm.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-crm.md) | 2026-08-15 |
 | **Addons::Student** | `IMPLEMENTED` | `app/modules/addons/student` | Aluno, Perfil de Preparação e Objetivos de Preparação | `@core`, `shared`, `academic` | Alunos & Preparação | [addons-student.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-student.md) | 2026-08-31 |
+| **Addons::Diagnostic** | `INTEGRATED` | `app/modules/addons/diagnostic` | Módulo 03 — Diagnóstico e Avaliação Inicial | `@core`, `shared`, `academic`, `student` | Student, Knowledge | [addons-diagnostic.md](file:///home/mp/projectos/boilerPlate/docs/modules/addons-diagnostic.md) | 2026-09-01 |
 | **Addons::Academic** | `INTEGRATED` | `app/modules/addons/academic` | Estrutura Académica, Exames, Questões, Moderação IA e Metas de Estudo | `@core`, `shared`, MySQL, MongoDB | Estudante, Admin, IA | [addons-academic.md](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/docs/modules/addons-academic.md) | 2026-08-28 |
 | **Addons::Accounting** | `PLANNED` | `app/modules/addons/accounting` | Módulo de contabilidade (referenciado em adonisrc.ts) | `@core`, `shared` | Financeiro | *Pendente* | 2026-08-15 |
 | **Addons::Pedagogy** | `PLANNED` | `app/modules/addons/pedagogy` | Gestão de Pautas, Alunos e Notas (MED Angola) | `@core`, `shared` | Gestão Escolar | [documentation.html](file:///c:/Users/MP/Documents/app-invoice-sas/boilerPlate/documentation.html) | 2026-08-15 |
@@ -145,3 +146,12 @@
 
 
 
+
+### 2.12. Módulo `Addons::Diagnostic` (Módulo 03)
+- **Status:** `INTEGRATED`
+- **Localização:** `app/modules/addons/diagnostic`
+- **Responsabilidade:** Módulo 03 — Diagnóstico e Avaliação Inicial. Permite a configuração administrativa de diagnósticos e a execução por estudantes vinculados a um PreparationGoal. Possui seleção inteligente fixa de questões (Módulo 01), salvamento imediato de respostas com autoridade backend-side para correção, timer de expiração temporal, navegação estrita sem permitir retornar questões, resultado geral/disciplina/tópico e geração de evidências para o Módulo 04 (Knowledge).
+- **Entidades de Domínio:** `DiagnosticAssessmentEntity`, `DiagnosticAttemptEntity`, `DiagnosticQuestionSelectionEntity`, `DiagnosticAnswerEntity`, `DiagnosticResultEntity`.
+- **Casos de Uso:** `StartDiagnosticAttemptUseCaseImpl`, `SubmitDiagnosticAnswerUseCaseImpl`, `CompleteDiagnosticAttemptUseCaseImpl`, `GetDiagnosticResultUseCaseImpl`, `AdminManageDiagnosticAssessmentUseCaseImpl`.
+- **Rotas:** `/student/diagnostics`, `/student/diagnostics/:id/start`, `/student/diagnostics/attempts/:id/execution`, `/student/diagnostics/attempts/:id/answer`, `/student/diagnostics/attempts/:id/complete`, `/student/diagnostics/attempts/:id/result`, `/account/admin/diagnostics`.
+- **Testes:** Unitários com Sinon (`start_diagnostic_attempt_usecase_impl.spec.ts`).
