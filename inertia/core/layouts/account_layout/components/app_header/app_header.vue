@@ -25,17 +25,12 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
       <div class="flex justify-between h-full">
         <div class="flex">
           <div class="bg-white w-auto lg:w-64 px-4 flex items-center justify-center">
-            <RouterLink href="/account/dashboard" class="flex items-baseline">
+            <RouterLink href="/account/dashboard" class="flex items-center justify-center">
               <img
-                v-if="headers.appLogo"
-                :src="headers.appLogo"
-                class="h-8"
-                :alt="headers.appName"
+                src="/assets/imgs/logo.png"
+                class="h-9 object-contain"
+                alt="NEXA"
               />
-              <!-- <span
-              class="app-logo self-center hidden sm:block text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white"
-              >{{ headers.appName }}</span
-            > -->
             </RouterLink>
           </div>
 
@@ -77,13 +72,11 @@ const headers = computed(() => usePage().props.headers as AppHeaderProp)
         </div>
 
         <div class="flex items-center justify-center">
-          <img src="http://water-adem.itgest.co.ao/assets/dist/img/unig_white.png" class="h-7" alt="logo" />
+          <img src="/assets/imgs/logo.png" class="h-8 object-contain brightness-0 invert" alt="NEXA" />
         </div>
 
         <div class="flex items-center justify-center gap-3 pr-4">
           <AppFullscreen class="hidden sm:block" />
-          <!-- <AppDarkMode />
-          <AppNotification /> -->
           <AppLanguage />
           <AppUserSettings />
         </div>
