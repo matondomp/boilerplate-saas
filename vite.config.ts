@@ -22,6 +22,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
+    holdUntilCrawlEnd: true,
     include: [
       'vue',
       '@inertiajs/vue3',
