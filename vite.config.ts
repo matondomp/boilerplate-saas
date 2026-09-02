@@ -12,17 +12,15 @@ export default defineConfig({
   ],
   server: {
     host: true,
+    hmr: {
+      host: 'localhost',
+    },
     watch: {
       usePolling: true,
       interval: 1000,
       ignored: ['**/node_modules/**', '**/build/**', '**/.git/**'],
     },
   },
-
-  /**
-   * Define aliases for importing modules from
-   * your frontend code
-   */
   resolve: {
     alias: {
       '~/': `${getDirname(import.meta.url)}/inertia/`,
