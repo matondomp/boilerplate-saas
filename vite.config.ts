@@ -21,6 +21,18 @@ export default defineConfig({
       ignored: ['**/node_modules/**', '**/build/**', '**/.git/**'],
     },
   },
+  optimizeDeps: {
+    include: [
+      'vue',
+      '@inertiajs/vue3',
+      'vue-i18n',
+      'vue-awesome-paginate',
+      'flowbite-vue',
+      '@vuelidate/core',
+      '@vuelidate/validators',
+      '@heroicons/vue/24/outline',
+    ],
+  },
   resolve: {
     alias: {
       '~/': `${getDirname(import.meta.url)}/inertia/`,
